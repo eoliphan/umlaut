@@ -287,9 +287,3 @@
   (let [umlaut (core/main files)]
     (gen-by-group umlaut)
     (gen-all umlaut)))
-
-; (save-string-to-file "output/a.dot" (gen ["test/fixtures/person/person.umlaut" "test/fixtures/person/profession.umlaut"]))
-; (save-dotstring-to-image "output/all.png" (gen ["test/fixtures/person/person.umlaut" "test/fixtures/person/profession.umlaut"]))
-; (save-dotstring-to-image "output/philz.png" (gen ["test/philz/main.umlaut"]))
-; (save-dotstring-to-image "output/products.png" (get (gen-by-group (core/main ["test/philz/main.umlaut"])) "Products"))
-; (save-dotstring-to-image "output/employee.png" (get (gen-by-group (core/main ["test/fixtures/person/person.umlaut" "test/fixtures/person/profession.umlaut"])) "fixture"))
