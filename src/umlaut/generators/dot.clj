@@ -265,21 +265,21 @@
                        (gen-dotstring))]
     dotstring))
 
+(defn- gen-custom-diagram [umlaut diagram-name groups-coll]
+  (->> groups-coll
+       (reduce
+        (fn [acc group]
+          (str acc
+               (gen-subgraphs-string
+                (remove-extra-nodes diagram-name (create-group group umlaut) umlaut))))
+        "")
+       (gen-dotstring)))
+
 (defn gen-by-group [umlaut]
   (reduce
    (fn [acc [diagram-name node]]
      (def ^:private edges (atom []))
-     (let
-      [curr
-       (->> ((second node) :groups)
-            (reduce
-             (fn [acc group]
-               (str acc
-                    (gen-subgraphs-string
-                     (remove-extra-nodes diagram-name (create-group group umlaut) umlaut))))
-             "")
-            (gen-dotstring))]
-       (assoc acc diagram-name curr)))
+     (assoc acc diagram-name (gen-custom-diagram umlaut diagram-name (:groups (second node)))))
    {} (seq (umlaut :diagrams))))
 
 (defn gen [files]
