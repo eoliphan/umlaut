@@ -27,10 +27,8 @@
 (defn- gen-graphql [filename files]
   (save-string-to-file filename (graphql/gen files)))
 
-(defn- gen-all []
+(defn gen-all []
   (gen-umlaut (str base "umlaut.fixture") umlaut-files)
   (gen-dotstring (str base "dot.fixture") umlaut-files)
   (gen-lacinia (str base "lacinia.fixture") umlaut-files)
   (gen-graphql (str base "graphql.fixture") umlaut-files))
-
-(gen-all)
