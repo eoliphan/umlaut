@@ -1,8 +1,5 @@
 # Umlaut
 
-[![Clojars Project](https://img.shields.io/clojars/v/umlaut.svg)](https://clojars.org/umlaut)
-[![Clojars Project](https://img.shields.io/clojars/v/lein-umlaut.svg)](https://clojars.org/lein-umlaut)
-
 Umlaut is a schema language used to describe - in a neutral fashion - any data
 relationship domain.
 
