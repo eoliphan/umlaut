@@ -25,7 +25,9 @@ of truth.
 
 ## Getting Started
 
-### Option 1: As a lein plugin
+### Option 1: As a binary
+
+
 
 The recommended approach is to use Umlaut via the `lein-umlaut` plugin on your lein
 `profiles.clj` file (`~/.lein/profiles.clj`). This will make sure that the Umlaut lein
@@ -44,7 +46,10 @@ $ lein help umlaut
 During the first execution there will be a few dependencies installed and then yuo should see
 the usage help.
 
-### Option 2: As a project dependency
+### Option 2: As a Clojure dev util
+
+
+### Option 3: As a Clojure project library
 
 If you need to use Umlaut as part of your project, add the following line to your
 `project.clj` dependencies (situations where you would need this setup are such that you need to
@@ -355,7 +360,7 @@ diagram filename {
 
 The above example generates this diagram:
 
-![filename](./resources/filename.png)
+![filename](./docs/filename.png)
 
 - A file named `all.png` is always created with all the types defined in the umlaut document.
 - The file created is `filename.png` because of the identifier in the `diagram` keyword.

@@ -284,6 +284,6 @@
 
 (defn gen [files]
   "Saves the diagrams in the /output folder"
-  (let [umlaut (core/main files)]
+  (let [umlaut (core/run files)]
     (gen-by-group umlaut)
     (gen-all umlaut)))

@@ -302,7 +302,7 @@
   "Returns a clojure map that the keys are file names, the value are clojure spec code"
   (println "Remember!")
   (println (str "You need to have a namespace: " validators-namespace " that defines your custom validators."))
-  (let [umlaut (resolve-inheritance (core/main files))
+  (let [umlaut (resolve-inheritance (core/run files))
         nodes-seq (seq (umlaut :nodes))
         opts {:spec-package spec-package
               :validators-namespace validators-namespace
@@ -310,7 +310,7 @@
               :umlaut umlaut}]
     (reduce
      (fn [acc [key node]]
-        ; node is a vector with 2 elements: kind and type-obj
+       ;; node is a vector with 2 elements: kind and type-obj
        (if (= (first node) :interface)
          acc
          (merge acc {(namespace-from-type (second node))

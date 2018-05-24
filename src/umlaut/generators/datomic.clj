@@ -147,7 +147,7 @@
 (defn gen
   "Returns a clojure vector in the Datomic schema format"
   [files]
-  (let [umlaut (utils/resolve-inheritance (core/main files))
+  (let [umlaut (utils/resolve-inheritance (core/run files))
         nodes (->> (:nodes umlaut)
                    (filter is-type-or-enum?)
                    (filter has-simple-fields?)

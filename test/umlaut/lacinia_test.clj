@@ -14,5 +14,3 @@
       (is (and
            (nil? (first diff))
            (nil? (second diff)))))))
-
-(run-all-tests)

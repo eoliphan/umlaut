@@ -1,5 +1,4 @@
 (ns umlaut.core
-  (:gen-class)
   (:require [clojure.spec.alpha :as s]
             [clojure.spec.test.alpha :as stest]
             [umlaut.models :as model]
@@ -68,12 +67,12 @@
       check-throw-spec-error
       check-throw-type-error))
 
-(defn main
+(defn run
   "Parses, validates, and transform the umlaut files from a folder"
   [path]
   (read-folder path))
 
-(s/fdef main
-        :ret ::model/namespaces)
+(s/fdef run
+  :ret ::model/namespaces)
 
-(stest/instrument `main)
+(stest/instrument `run)
