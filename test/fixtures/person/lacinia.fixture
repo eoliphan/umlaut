@@ -24,8 +24,7 @@
      :isDeprecated false}},
    :implements [:Person]},
   :Profession
-  {:fields {:name {:type (non-null String), :isDeprecated false}},
-   :implements []}},
+  {:fields {:name {:type (non-null String), :isDeprecated false}}}},
  :enums
  {:RelationshipStatus
   {:values ["Single" "Married"],
@@ -48,7 +47,7 @@
   },
  :unions
  {:UnionType
-  {:members [:Person :Profession],
+  {:members [:Employee :Profession],
    :description "This is an union type"}},
  :subscriptions
  {:getMessages

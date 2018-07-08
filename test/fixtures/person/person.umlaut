@@ -71,7 +71,7 @@ type SubscriptionRoot {
 @lang/graphql identifier union
 @doc "This is an union type"
 enum UnionType {
-  Person
+  Employee
   Profession
 }
 
