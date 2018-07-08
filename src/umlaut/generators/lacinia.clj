@@ -1,6 +1,7 @@
 (ns umlaut.generators.lacinia
   (:require [umlaut.core :as core]
             [umlaut.utils :refer [annotations-by-space-key
+                                  annotations-by-space-key-value
                                   annotations-by-space
                                   annotations-by-space
                                   annotation-comparer
@@ -101,8 +102,12 @@
   (vec (map lacinia-type (info :parents))))
 
 (defn- check-add-documentation [node out]
-  (let [docs (first (annotations-by-space :documentation (node :annotations)))]
-    (if docs
+  (let [docs (first (annotations-by-space :documentation (node :annotations)))
+        annotations (node :annotations)
+        chk-lacinia-id (partial annotations-by-space-key-value space "identifier" )
+        vals (map #(chk-lacinia-id % annotations) ["mutation" "query" "subscription"])
+        can-add? (every? empty? vals)]
+    (if (and docs can-add?)
       (merge out {:description (:value docs)})
       out)))
 

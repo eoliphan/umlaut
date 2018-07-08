@@ -38,9 +38,12 @@ enum RelationshipStatus {
 @lang/lacinia identifier query
 @doc "An employee inherits from Person"
 type QueryRoot {
-  unionQuery(): UnionType
+  unionQuery(): UnionType  {
+    @lang/lacinia resolver resolve-unionquery
+  }
   getFriends(): Person[0..n] {
     @doc "This is a documentation inside a query field (with parenthesis in the comment)"
+    @lang/lacinia resolver resolve-getfriends
   }
 }
 
@@ -50,6 +53,7 @@ type QueryRoot {
 type MutationRoot {
   mutation: String {
     @doc "Test comment with special characters: (with [with {with ()}]){}[]...+-*/\^%&$#@!?"
+    @lang/lacinia resolver resolve-mutation
   }
 }
 

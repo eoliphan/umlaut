@@ -43,8 +43,9 @@
   {:type (non-null String),
    :description
    "Test comment with special characters: (with [with {with ()}]){}[]...+-*/\\^%&$#@!?",
-   :isDeprecated false},
-  :description "This is a comment above a mutation ([]{-})"},
+   :isDeprecated false
+   :resolve :resolve-mutation},
+  },
  :unions
  {:UnionType
   {:members [:Person :Profession],
@@ -60,10 +61,12 @@
    :isDeprecated false,
    :stream :stream-logs}},
  :queries
- {:unionQuery {:type (non-null :UnionType), :isDeprecated false},
+ {:unionQuery {:type (non-null :UnionType), :isDeprecated false
+ :resolve :resolve-unionquery},
   :getFriends
   {:type (non-null (list (non-null :Person))),
    :description
    "This is a documentation inside a query field (with parenthesis in the comment)",
-   :isDeprecated false},
-  :description "An employee inherits from Person"}}
+   :isDeprecated false
+   :resolve :resolve-getfriends},
+  }}
