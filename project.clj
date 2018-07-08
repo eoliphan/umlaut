@@ -4,7 +4,7 @@
   :license {:name "MIT License"
             :url "https://opensource.org/licenses/MIT"}
   :dependencies [[org.clojure/clojure "1.9.0"]
-                 
+
                  [camel-snake-kebab "0.4.0"]
                  [instaparse "1.4.9"]
                  [com.taoensso/timbre "4.10.0"]
