@@ -82,7 +82,7 @@
 
 (defn save-string-to-file [filepath content]
   "Receives a file name and a string, saves the string in filepath"
-  (println "Saved " filepath)
+  (println (str "Saved " filepath))
   (spit filepath content))
 
 (defn save-dotstring-to-image [filepath content]

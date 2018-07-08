@@ -316,12 +316,3 @@
          (merge acc {(namespace-from-type (second node))
                      (process-node node opts)})))
      {} nodes-seq)))
-
-; (def out (gen "philz-api.specs" "philz-api.validators" "id" ["test/philz/main.umlaut"]))
-; (clojure.pprint/pprint out)
-; (clojure.pprint/pprint (out "test-a"))
-; (spit "output/requires.clj" (out "test"))
-; (clojure.pprint/pprint "--------------")
-; (clojure.pprint/pprint (out "viewer-node"))
-; (clojure.pprint/pprint "--------------")
-; (clojure.pprint/pprint (out "carousel-favorite-node"))
