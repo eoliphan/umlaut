@@ -46,5 +46,5 @@ type SubscriptionRoot {
 }
 
 # This is an union type
-union UnionType = Person | Profession
+union UnionType = Employee | Profession
 

@@ -102,11 +102,11 @@
   (vec (map lacinia-type (info :parents))))
 
 (defn- check-add-documentation [node out]
-  (let [docs (first (annotations-by-space :documentation (node :annotations)))
-        annotations (node :annotations)
-        chk-lacinia-id (partial annotations-by-space-key-value space "identifier" )
-        vals (map #(chk-lacinia-id % annotations) ["mutation" "query" "subscription"])
-        can-add? (every? empty? vals)]
+  (let [docs           (first (annotations-by-space :documentation (node :annotations)))
+        annotations    (node :annotations)
+        chk-lacinia-id (partial annotations-by-space-key-value space "identifier")
+        vals           (map #(chk-lacinia-id % annotations) ["mutation" "query" "subscription"])
+        can-add?       (every? empty? vals)]
     (if (and docs can-add?)
       (merge out {:description (:value docs)})
       out)))
@@ -120,8 +120,8 @@
 (defn- gen-node-type [node]
   (when (= (first node) :type)
     (let [info (second node)]
-      (->> {:fields (process-declaration info)
-            :implements (attr-to-parents info)}
+      (->> (merge {:fields (process-declaration info)}
+                  (when (seq (attr-to-parents info)) {:implements (attr-to-parents info)}))
            (check-add-documentation info)
            (assoc {} (keyword (info :id)))))))
 
@@ -172,11 +172,11 @@
 
 (defn- build-ignored-list [nodes]
   (flatten (list
-            (map first (filter-input-nodes nodes))
-            (map first (filter-mutation-nodes nodes))
-            (map first (filter-union-nodes nodes))
-            (map first (filter-subscription-nodes nodes))
-            (map first (filter-query-nodes nodes)))))
+             (map first (filter-input-nodes nodes))
+             (map first (filter-mutation-nodes nodes))
+             (map first (filter-union-nodes nodes))
+             (map first (filter-subscription-nodes nodes))
+             (map first (filter-query-nodes nodes)))))
 
 (defn- filter-other-nodes [nodes]
   (let [all (build-ignored-list nodes)]
@@ -184,32 +184,32 @@
 
 (defn gen [files]
   "Returns a clojure map that can be used as a EDN schema"
-  (let [umlaut (resolve-inheritance (core/main files))
+  (let [umlaut    (resolve-inheritance (core/main files))
         nodes-seq (seq (umlaut :nodes))]
     (as-> nodes-seq coll
           (reduce
-           (fn [acc [key node]]
-             (merge acc {:objects (or (merge (acc :objects) (gen-node-type node)) {})
-                         :enums (or (merge (acc :enums) (gen-node-enum node)) {})
-                         :interfaces (or (merge (acc :interfaces) (gen-node-interface node)) {})}))
-           {} (filter-other-nodes nodes-seq))
+            (fn [acc [key node]]
+              (merge acc {:objects    (or (merge (acc :objects) (gen-node-type node)) {})
+                          :enums      (or (merge (acc :enums) (gen-node-enum node)) {})
+                          :interfaces (or (merge (acc :interfaces) (gen-node-interface node)) {})}))
+            {} (filter-other-nodes nodes-seq))
           (reduce
-           (fn [acc [key node]]
-             (merge acc {:input-objects (or (merge (acc :input-objects) (gen-node-type node)) {})}))
-           coll (filter-input-nodes nodes-seq))
+            (fn [acc [key node]]
+              (merge acc {:input-objects (or (merge (acc :input-objects) (gen-node-type node)) {})}))
+            coll (filter-input-nodes nodes-seq))
           (reduce
-           (fn [acc [key node]]
-             (merge acc {:mutations (or (merge (acc :mutations) (gen-query-type node)) {})}))
-           coll (filter-mutation-nodes nodes-seq))
+            (fn [acc [key node]]
+              (merge acc {:mutations (or (merge (acc :mutations) (gen-query-type node)) {})}))
+            coll (filter-mutation-nodes nodes-seq))
           (reduce
-           (fn [acc [key node]]
-             (merge acc {:unions (or (merge (acc :unions) (gen-union-type node)) {})}))
-           coll (filter-union-nodes nodes-seq))
+            (fn [acc [key node]]
+              (merge acc {:unions (or (merge (acc :unions) (gen-union-type node)) {})}))
+            coll (filter-union-nodes nodes-seq))
           (reduce
-           (fn [acc [key node]]
-             (merge acc {:subscriptions (or (merge (acc :subscriptions) (gen-subscription-type node)) {})}))
-           coll (filter-subscription-nodes nodes-seq))
+            (fn [acc [key node]]
+              (merge acc {:subscriptions (or (merge (acc :subscriptions) (gen-subscription-type node)) {})}))
+            coll (filter-subscription-nodes nodes-seq))
           (reduce
-           (fn [acc [key node]]
-             (merge acc {:queries (or (merge (acc :queries) (gen-query-type node)) {})}))
-           coll (filter-query-nodes nodes-seq)))))
+            (fn [acc [key node]]
+              (merge acc {:queries (or (merge (acc :queries) (gen-query-type node)) {})}))
+            coll (filter-query-nodes nodes-seq)))))
