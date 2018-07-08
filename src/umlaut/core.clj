@@ -76,4 +76,4 @@
 (s/fdef main
         :ret ::model/namespaces)
 
-(stest/instrument `main)
+#_(stest/instrument `main)
