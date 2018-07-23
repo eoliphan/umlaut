@@ -8,4 +8,4 @@
 
 (deftest graphql-test
   (testing "GraphQL generator test"
-    (is (= fixture (graphql/gen ["test/fixtures/person/person.umlaut" "test/fixtures/person/profession.umlaut"])))))
+    (is (= fixture (graphql/gen "test/fixtures/person")))))

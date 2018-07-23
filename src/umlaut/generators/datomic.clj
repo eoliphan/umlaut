@@ -146,9 +146,12 @@
 
 (defn gen
   "Returns a clojure vector in the Datomic schema format"
-  [files]
-  (let [umlaut (utils/resolve-inheritance (core/run files))
-        nodes (->> (:nodes umlaut)
+  [path]
+  (let [umlaut (-> path
+                   core/run
+                   utils/resolve-inheritance)
+        nodes (->> umlaut
+                   :nodes
                    (filter is-type-or-enum?)
                    (filter has-simple-fields?)
                    (sort-by #(first %)))]

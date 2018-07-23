@@ -10,7 +10,7 @@
 (deftest lacinia-test
   (testing "Lacinia generator test"
     (let [diff (data/diff fixture
-                          (lacinia/gen ["test/fixtures/person/person.umlaut" "test/fixtures/person/profession.umlaut"]))]
+                          (lacinia/gen "test/fixtures/person"))]
       (is (and
            (nil? (first diff))
            (nil? (second diff)))))))

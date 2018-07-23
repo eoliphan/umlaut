@@ -177,9 +177,11 @@
   (let [all (build-ignored-list nodes)]
     (filter #(not (in? (first %) all)) nodes)))
 
-(defn gen [files]
+(defn gen [path]
   "Returns a clojure map that can be used as a EDN schema"
-  (let [umlaut (resolve-inheritance (core/run files))
+  (let [umlaut (-> path
+                   core/run
+                   resolve-inheritance)
         nodes-seq (seq (umlaut :nodes))]
     (as-> nodes-seq coll
       (reduce

@@ -68,14 +68,6 @@
       (io/file filename)
       (.getPath)))
 
-(defn- get-umlaut-files [in]
-  "Returns a list of .umlaut files from input folder"
-  (->> in
-       (io/file)
-       (file-seq)
-       (map #(.getPath ^java.io.File %))
-       (filter #(str/ends-with? % ".umlaut"))))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Processing methods
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -83,7 +75,7 @@
 (defmulti process (fn [{:keys [gen]}] gen))
 
 (defmethod process 'dot [{:keys [in out]}]
-  (let [umlaut (core/run (get-umlaut-files in))]
+  (let [umlaut (core/run in)]
     (utils/save-dotstring-to-image (join-path out "all.png") (dot/gen-all umlaut))
     (utils/save-string-to-file (join-path out "all.dot") (dot/gen-all umlaut))
     (reduce (fn [acc [key value]]
@@ -92,20 +84,20 @@
             {} (seq (dot/gen-by-group umlaut)))))
 
 (defmethod process 'datomic [{:keys [in out]}]
-  (utils/save-map-to-file out (datomic/gen (get-umlaut-files in))))
+  (utils/save-map-to-file out (datomic/gen in)))
 
 (defmethod process 'lacinia [{:keys [in out]}]
-  (utils/save-map-to-file out (lacinia/gen (get-umlaut-files in))))
+  (utils/save-map-to-file out (lacinia/gen in)))
 
 (defmethod process 'graphql [{:keys [in out]}]
-  (utils/save-map-to-file out (graphql/gen (get-umlaut-files in))))
+  (utils/save-map-to-file out (graphql/gen in)))
 
 (defmethod process 'spec [{:keys [in out
                                   spec-package
                                   custom-validators-filepath
                                   id-namespace]}]
   (let [specs (spec/gen spec-package custom-validators-filepath
-                        id-namespace (get-umlaut-files in))]
+                        id-namespace in)]
     (doseq [[k v] specs]
       (let [filename (str/replace k #"-" "_")]
         (utils/save-string-to-file (join-path out (str filename ".clj")) v)))))

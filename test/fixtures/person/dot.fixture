@@ -13,8 +13,9 @@ digraph G {
     fontsize = 8
     arrowhead = "open"
   ]
-subgraph Person {
-  label = "Person"
+subgraph Profession {
+  label = "Profession"
+  Profession [label = "{Profession|name: String\l}"]
   Person [label = "{\<\<interface\>\>\nPerson|name: String\l}" fillcolor = lightyellow, style=filled]
   Employee [label = "{Employee|salary: Float\lstatus: RelationshipStatus\lprofession: Profession?\lchangeSalary(newSalary: Float): Float\lfriends: String[0..4]\laddress: String\l}" fillcolor = navajowhite, style=filled]
   RelationshipStatus [label = "{\<\< enum\>\>\nRelationshipStatus|Single\lMarried\l}" fillcolor = lightblue, style=filled]
@@ -22,7 +23,6 @@ subgraph Person {
   MutationRoot [label = "{MutationRoot|mutation: String\l}" fillcolor = aquamarine, style=filled]
   SubscriptionRoot [label = "{SubscriptionRoot|getMessages(roomId: String): String[0..n]\lgetLogs: String[0..n]\l}"]
   UnionType [label = "{\<\< union\>\>\nUnionType|Person\lProfession\l}"]
-  Profession [label = "{Profession|name: String\l}"]
 }
 Employee -> RelationshipStatus [label="1"]
 

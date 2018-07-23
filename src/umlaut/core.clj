@@ -1,17 +1,26 @@
 (ns umlaut.core
-  (:require [clojure.spec.alpha :as s]
+  (:require [clojure.java.io :as io]
+            [clojure.spec.alpha :as s]
             [clojure.spec.test.alpha :as stest]
+            [clojure.string :as string]
             [umlaut.models :as model]
             [umlaut.parser :refer [parse]]
             [umlaut.utils :refer [in? primitive-types]]))
 
+(defn- umlaut-files [in]
+  "Returns a list of .umlaut files from input folder"
+  (->> in
+       io/file
+       file-seq
+       (filter #(string/ends-with? (.getPath ^java.io.File %)
+                                   ".umlaut"))))
+
 (defn- read-parse [path]
   "Read all the umlaut files from a folder and parse its content"
   (->> path
-       (list)
-       (flatten)
-       (reduce (fn [acc filename]
-                 (let [parsed (parse (slurp filename))]
+       umlaut-files
+       (reduce (fn [acc file]
+                 (let [parsed (parse (slurp file))]
                    {:nodes (merge (:nodes acc) (:nodes parsed))
                     :diagrams (merge (:diagrams acc) (:diagrams parsed))})) {})))
 
