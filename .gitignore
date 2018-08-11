@@ -5,18 +5,18 @@
 /target
 /classes
 /checkouts
-pom.xml
-pom.xml.asc
 *.jar
 *.class
 /.lein-*
 /.nrepl-port
+/.cpcache/
 /lib/
 .lein-deps-sum
 .lein-repl-history
 .lein-plugins/
 .lein-failures
 .nrepl-port
+dependency-reduced-pom.xml
 
 ### IDE
 .idea/
@@ -30,5 +30,3 @@ pom.xml.asc
 
 ### OS
 .DS_Store
-
-

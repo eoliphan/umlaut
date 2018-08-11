@@ -282,8 +282,9 @@
      (assoc acc diagram-name (gen-custom-diagram umlaut diagram-name (:groups (second node)))))
    {} (seq (umlaut :diagrams))))
 
-(defn gen [files]
+(defn gen [path]
   "Saves the diagrams in the /output folder"
-  (let [umlaut (core/main files)]
+  (let [umlaut (-> path
+                   core/run)]
     (gen-by-group umlaut)
     (gen-all umlaut)))

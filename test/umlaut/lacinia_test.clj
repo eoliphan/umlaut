@@ -34,12 +34,8 @@
 
 (deftest lacinia-test
   (testing "Lacinia generator test"
-    (let [lacinia-schema (lacinia/gen ["test/fixtures/person/person.umlaut" "test/fixtures/person/profession.umlaut"])
-          diff (data/diff fixture
-                          lacinia-schema)]
-      (is (some? (validate-fixture)))
+    (let [diff (data/diff fixture
+                          (lacinia/gen "test/fixtures/person"))]
       (is (and
            (nil? (first diff))
            (nil? (second diff)))))))
-
-(run-all-tests)

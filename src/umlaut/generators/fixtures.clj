@@ -15,7 +15,7 @@
 (def ^:private umlaut-files [(str base "person.umlaut") (str base "profession.umlaut")])
 
 (defn- gen-umlaut [filename files]
-  (save-map-to-file filename (umlaut.core/main files)))
+  (save-map-to-file filename (umlaut.core/run files)))
 
 (defn- gen-dotstring [filename files]
   (let [dotstring (dot/gen files)]

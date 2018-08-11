@@ -8,6 +8,4 @@
 
 (deftest dot-test
   (testing "Dot generator test"
-    (is (= fixture (dot/gen ["test/fixtures/person/person.umlaut" "test/fixtures/person/profession.umlaut"])))))
-
-(run-all-tests)
+    (is (= fixture (dot/gen "test/fixtures/person")))))
