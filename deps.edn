@@ -5,8 +5,10 @@
   org.clojure/tools.cli {:mvn/version "0.3.7"}
   expound               {:mvn/version "0.7.1"}
   camel-snake-kebab     {:mvn/version "0.4.0"}
-  instaparse            {:mvn/version "1.4.7"}}
- 
+  instaparse            {:mvn/version "1.4.7"}
+  com.walmartlabs/lacinia               {:mvn/version "0.29.0-rc-1"}
+  org.clojure/data.json {:mvn/version "0.2.6"} }
+
  :aliases
  {:dev
   {:extra-paths ["test"]
